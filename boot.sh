@@ -2,6 +2,7 @@
 source venv/bin/activate
 
 TANDOOR_PORT="${TANDOOR_PORT:-8080}"
+TANDOOR_ADDRESS="${TANDOOR_ADDRESS:-''}"
 GUNICORN_WORKERS="${GUNICORN_WORKERS:-3}"
 GUNICORN_THREADS="${GUNICORN_THREADS:-2}"
 GUNICORN_LOG_LEVEL="${GUNICORN_LOG_LEVEL:-'info'}"
@@ -66,4 +67,4 @@ echo "Done"
 
 chmod -R 755 /opt/recipes/mediafiles
 
-exec gunicorn -b :$TANDOOR_PORT --workers $GUNICORN_WORKERS --threads $GUNICORN_THREADS --access-logfile - --error-logfile - --log-level $GUNICORN_LOG_LEVEL recipes.wsgi
+exec gunicorn -b $TANDOOR_ADDRESS:$TANDOOR_PORT --workers $GUNICORN_WORKERS --threads $GUNICORN_THREADS --access-logfile - --error-logfile - --log-level $GUNICORN_LOG_LEVEL recipes.wsgi
